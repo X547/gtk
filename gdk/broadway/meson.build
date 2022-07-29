@@ -25,7 +25,7 @@ gdk_broadway_public_headers = [
 
 install_headers(gdk_broadway_public_headers, 'gdkbroadway.h', subdir: 'gtk-4.0/gdk/broadway/')
 
-gdk_broadway_deps = [shmlib]
+gdk_broadway_deps = [shmlib, cc.find_library('network')]
 
 gen_c_array = find_program('gen-c-array.py')
 
@@ -64,7 +64,7 @@ libgdk_broadway = static_library('gdk-broadway',
 
 # gtk4-broadwayd
 
-broadwayd_syslib = os_win32 ? cc.find_library('ws2_32') : shmlib
+broadwayd_syslib = [os_win32 ? cc.find_library('ws2_32') : shmlib, cc.find_library('network')]
 
 executable('gtk4-broadwayd',
   sources: [

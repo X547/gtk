@@ -153,7 +153,7 @@ os_create_anonymous_file(off_t size)
 			return -1;
 	}
 
-#ifdef HAVE_POSIX_FALLOCATE
+#if !defined(__HAIKU__) && HAVE_POSIX_FALLOCATE
 	ret = posix_fallocate(fd, 0, size);
 	if (ret != 0) {
 		close(fd);

@@ -51,9 +51,8 @@
 #include <sys/mman.h>
 #if defined(HAVE_DEV_EVDEV_INPUT_H)
 #include <dev/evdev/input.h>
-#elif defined(HAVE_LINUX_INPUT_H)
-#include <linux/input.h>
 #endif
+#include "input-event-codes.h"
 
 /**
  * GdkWaylandDevice:

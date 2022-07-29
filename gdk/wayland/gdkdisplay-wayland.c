@@ -30,7 +30,9 @@
 #endif
 
 #include <sys/mman.h>
+#ifndef __HAIKU__
 #include <sys/syscall.h>
+#endif
 
 #include <glib.h>
 #include <gio/gio.h>

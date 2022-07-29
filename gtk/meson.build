@@ -1194,6 +1194,8 @@ endif
 # the object just does nothing being in the deplist
 gtk_deps += libintl_dep
 
+gtk_deps += cc.find_library('bsd')
+
 gtk_settings_schemas = [
   'org.gtk.gtk4.Settings.FileChooser.gschema.xml',
   'org.gtk.gtk4.Settings.ColorChooser.gschema.xml',
