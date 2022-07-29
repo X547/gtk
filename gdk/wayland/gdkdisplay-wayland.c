@@ -1275,6 +1275,7 @@ static void
 gdk_wayland_cairo_surface_destroy (void *p)
 {
   GdkWaylandCairoSurfaceData *data = p;
+  printf("gdk_wayland_cairo_surface_destroy\n");
 
   if (data->buffer)
     wl_buffer_destroy (data->buffer);
@@ -1292,6 +1293,7 @@ _gdk_wayland_display_create_shm_surface (GdkWaylandDisplay *display,
                                          int                height,
                                          guint              scale)
 {
+  printf("_gdk_wayland_display_create_shm_surface\n");
   GdkWaylandCairoSurfaceData *data;
   cairo_surface_t *surface = NULL;
   cairo_status_t status;
