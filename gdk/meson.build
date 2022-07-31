@@ -199,6 +199,7 @@ gdk_gen_headers = [gdkenum_h, gdkmarshal_h, gdkconfig, gdkversionmacros]
 
 gdk_deps = [
   libm,
+  cc.find_library('bsd'),
   pixbuf_dep,
   cairo_dep,
   pango_dep,
@@ -208,7 +209,7 @@ gdk_deps = [
   epoxy_dep,
   fontconfig_dep,
   platform_gio_dep,
-  pangocairo_dep
+  pangocairo_dep,
 ]
 
 if win32_enabled
