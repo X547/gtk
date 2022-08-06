@@ -2164,6 +2164,27 @@ gtk_button_set_label (GtkButton   *button,
   g_return_if_fail (GTK_IS_BUTTON (button));
 
   priv = button->priv;
+  if (priv->image == NULL)
+    {
+      gchar *use_this_icon = NULL;
+      if (g_strcmp0 (label, _("_Select")) == 0 || g_strcmp0 (label, _("_OK")) == 0)  use_this_icon = "gtk-ok";
+      else if (g_strcmp0 (label, _("_Cancel")) == 0)  use_this_icon = "gtk-cancel";
+      else if (g_strcmp0 (label, _("_Close")) == 0)   use_this_icon = "gtk-close";
+      else if (g_strcmp0 (label, _("_Yes")) == 0)     use_this_icon = "gtk-yes";
+      else if (g_strcmp0 (label, _("_No")) == 0)      use_this_icon = "gtk-no";
+      else if (g_strcmp0 (label, _("_Print")) == 0)   use_this_icon = "gtk-print";
+      else if (g_strcmp0 (label, _("Pre_view")) == 0) use_this_icon = "gtk-print-preview";
+      else if (g_strcmp0 (label, _("_Open")) == 0)    use_this_icon = "gtk-open";
+      else if (g_strcmp0 (label, _("_Save")) == 0)    use_this_icon = "gtk-save";
+      else if (g_strcmp0 (label, _("_Apply")) == 0)   use_this_icon = "gtk-apply";
+      else if (g_strcmp0 (label, _("_Stop")) == 0)    use_this_icon = "gtk-stop";
+      else if (g_strcmp0 (label, _("_Delete")) == 0)  use_this_icon = "gtk-delete";
+      else if (g_strcmp0 (label, _("_Remove")) == 0)  use_this_icon = "gtk-remove";
+      else if (g_strcmp0 (label, _("_Add")) == 0)     use_this_icon = "gtk-add";
+      else if (g_strcmp0 (label, _("_Help")) == 0)    use_this_icon = "gtk-help";
+      if (use_this_icon)
+        g_object_set (button, "image", gtk_image_new_from_icon_name (use_this_icon, GTK_ICON_SIZE_BUTTON), NULL);
+    }
 
   new_label = g_strdup (label);
   g_free (priv->label_text);
