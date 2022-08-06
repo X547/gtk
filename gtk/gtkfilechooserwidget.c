@@ -1424,7 +1424,7 @@ gtk_file_chooser_widget_key_press_event (GtkWidget   *widget,
           return TRUE;
         }
     }
-  else if (gtk_search_entry_handle_event (GTK_SEARCH_ENTRY (priv->search_entry), (GdkEvent *)event))
+  else if (FALSE && gtk_search_entry_handle_event (GTK_SEARCH_ENTRY (priv->search_entry), (GdkEvent *)event))
     {
       if (priv->operation_mode != OPERATION_MODE_SEARCH)
         operation_mode_set (impl, OPERATION_MODE_SEARCH);
@@ -2494,7 +2494,7 @@ file_list_set_sort_column_ids (GtkFileChooserWidget *impl)
 {
   GtkFileChooserWidgetPrivate *priv = impl->priv;
 
-  gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->browse_files_tree_view), -1);
+  gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->browse_files_tree_view), 0);
 
   gtk_tree_view_column_set_sort_column_id (priv->list_name_column, MODEL_COL_NAME);
   gtk_tree_view_column_set_sort_column_id (priv->list_time_column, MODEL_COL_TIME);
@@ -7348,8 +7348,6 @@ search_engine_hits_added_cb (GtkSearchEngine      *engine,
   GFile *file;
   gboolean select = FALSE;
 
-  if (gtk_tree_model_iter_n_children (GTK_TREE_MODEL (impl->priv->search_model), NULL) == 0)
-    select = TRUE;
 
   files = NULL;
   files_with_info = NULL;
@@ -7694,7 +7692,7 @@ recent_idle_cleanup (gpointer data)
 
   gtk_tree_view_set_model (GTK_TREE_VIEW (priv->browse_files_tree_view),
                            GTK_TREE_MODEL (priv->recent_model));
-  gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->browse_files_tree_view), -1);
+  gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->browse_files_tree_view), 0);
 
   gtk_tree_view_column_set_sort_column_id (priv->list_name_column, -1);
   gtk_tree_view_column_set_sort_column_id (priv->list_time_column, -1);
@@ -8647,10 +8645,6 @@ gtk_file_chooser_widget_class_init (GtkFileChooserWidgetClass *class)
                                 "search-shortcut",
                                 0);
   gtk_binding_entry_add_signal (binding_set,
-                                GDK_KEY_f, GDK_CONTROL_MASK,
-                                "search-shortcut",
-                                0);
-  gtk_binding_entry_add_signal (binding_set,
                                 GDK_KEY_r, GDK_MOD1_MASK,
                                 "recent-shortcut",
                                 0);
@@ -8772,6 +8766,7 @@ post_process_ui (GtkFileChooserWidget *impl)
   g_object_set_data (G_OBJECT (impl->priv->browse_files_tree_view), I_("GtkFileChooserWidget"), impl);
 
   /* Setup file list treeview */
+  gtk_tree_view_set_enable_search (GTK_TREE_VIEW (impl->priv->browse_files_tree_view), TRUE);
   selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (impl->priv->browse_files_tree_view));
   gtk_tree_selection_set_select_function (selection,
                                           list_select_func,
