@@ -80,6 +80,7 @@
 #include "gtkseparator.h"
 #include "gtkmodelbutton.h"
 #include "gtkgesturelongpress.h"
+#include "gtkcssprovider.h"
 
 #include <cairo-gobject.h>
 
@@ -8828,6 +8829,16 @@ post_process_ui (GtkFileChooserWidget *impl)
   gtk_popover_set_relative_to (GTK_POPOVER (impl->priv->rename_file_popover), impl->priv->browse_files_tree_view);
 
   add_actions (impl);
+  static gboolean style_added = FALSE;
+  if (!style_added)
+    {
+      style_added = TRUE;
+      GtkCssProvider *provider = gtk_css_provider_new ();
+      gtk_css_provider_load_from_data (provider,
+        "filechooser .sidebar-icon, filechooser .path-bar, filechooser .path-bar + button { opacity: 1; -gtk-icon-style: regular; }", -1, NULL);
+      gtk_style_context_add_provider_for_screen (gtk_widget_get_screen (GTK_WIDGET (impl)),
+        GTK_STYLE_PROVIDER (provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    }
 }
 
 void
