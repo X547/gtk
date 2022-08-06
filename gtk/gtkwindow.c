@@ -4114,6 +4114,8 @@ gtk_window_supports_client_shadow (GtkWindow *window)
 #ifdef GDK_WINDOWING_X11
   if (GDK_IS_X11_DISPLAY (display))
     {
+      if (g_strcmp0 (g_getenv ("GTK_CSD"), "1") != 0)
+        return FALSE;
       if (!gdk_screen_is_composited (screen))
         return FALSE;
 
