@@ -8018,7 +8018,7 @@ gtk_window_state_event (GtkWidget           *widget,
   GtkWindow *window = GTK_WINDOW (widget);
   GtkWindowPrivate *priv = window->priv;
 
-  if (event->changed_mask & GDK_WINDOW_STATE_FOCUSED)
+  if ((event->changed_mask & GDK_WINDOW_STATE_FOCUSED) && (priv->client_decorated || (g_strcmp0 (g_getenv ("GTK_BACKDROP"), "1") == 0)))
     ensure_state_flag_backdrop (widget);
 
   if (event->changed_mask & GDK_WINDOW_STATE_FULLSCREEN)
