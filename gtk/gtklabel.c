@@ -3686,6 +3686,14 @@ gtk_label_get_preferred_layout_size (GtkLabel *label,
   GtkLabelPrivate *priv = label->priv;
   PangoLayout *layout;
   gint char_pixels;
+  GtkWidget *toplevel = gtk_widget_get_toplevel (GTK_WIDGET (label));
+  if (GTK_IS_WINDOW (toplevel))
+    {
+      gint default_window_width;
+      gtk_window_get_default_size (GTK_WINDOW (toplevel), &default_window_width, NULL);
+      if (default_window_width == -1 && priv->max_width_chars == -1 && priv->ellipsize == PANGO_ELLIPSIZE_NONE)
+        priv->max_width_chars = 56;
+    }
 
   /* "width-chars" Hard-coded minimum width:
    *    - minimum size should be MAX (width-chars, strlen ("..."));
