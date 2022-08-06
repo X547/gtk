@@ -4352,9 +4352,7 @@ gtk_window_set_decorated (GtkWindow *window,
 gboolean
 gtk_window_get_decorated (GtkWindow *window)
 {
-  g_return_val_if_fail (GTK_IS_WINDOW (window), TRUE);
-
-  return window->priv->decorated;
+  return FALSE;
 }
 
 /**
