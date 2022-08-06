@@ -148,7 +148,7 @@
  * widget that is added as a titlebar child.
  */
 
-#define MNEMONICS_DELAY 300 /* ms */
+#define MNEMONICS_DELAY 0 /* ms */
 #define NO_CONTENT_CHILD_NAT 200
 /* In case the content (excluding header bar and shadows) of the window
  * would be empty, either because there is no visible child widget or only an
