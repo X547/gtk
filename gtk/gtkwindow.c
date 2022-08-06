@@ -4167,14 +4167,13 @@ gtk_window_enable_csd (GtkWindow *window)
     }
 
   priv->client_decorated = TRUE;
-#ifdef GDK_WINDOWING_X11
-  if (GDK_IS_X11_DISPLAY (gtk_widget_get_display (widget)) && g_getenv("GTK_CSD") == FALSE)
+
+  if (g_getenv("GTK_CSD") == FALSE)
     {
       gtk_style_context_remove_class (gtk_widget_get_style_context (widget), GTK_STYLE_CLASS_CSD);
       gtk_style_context_remove_class (gtk_widget_get_style_context (widget), "solid-csd");
       priv->client_decorated = FALSE;
     }
-#endif
 }
 
 static void
