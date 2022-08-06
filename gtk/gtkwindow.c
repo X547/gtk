@@ -4175,6 +4175,8 @@ on_titlebar_title_notify (GtkHeaderBar *titlebar,
   const gchar *title;
 
   title = gtk_header_bar_get_title (titlebar);
+  if (gtk_header_bar_get_subtitle (titlebar))
+    title = g_strconcat (title, " — ", gtk_header_bar_get_subtitle (titlebar), NULL);
   gtk_window_set_title_internal (self, title, FALSE);
 }
 
@@ -9365,6 +9367,7 @@ static void
 gtk_window_do_popup (GtkWindow      *window,
                      GdkEventButton *event)
 {
+  if (!window->priv->client_decorated) return;
   if (!gdk_window_show_window_menu (_gtk_widget_get_window (GTK_WIDGET (window)),
                                     (GdkEvent *) event))
     gtk_window_do_popup_fallback (window, event);
