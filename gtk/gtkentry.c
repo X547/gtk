@@ -9627,7 +9627,8 @@ popup_targets_received (GtkClipboard     *clipboard,
           g_signal_connect_swapped (menuitem, "activate",
                                     G_CALLBACK (gtk_entry_insert_emoji), entry);
           gtk_widget_show (menuitem);
-          gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+          if (g_getenv ("GTKM_INSERT_EMOJI") != FALSE)
+            gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
         }
 
       g_signal_emit (entry, signals[POPULATE_POPUP], 0, menu);
