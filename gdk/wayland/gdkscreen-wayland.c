@@ -1089,7 +1089,11 @@ gdk_wayland_screen_get_setting (GdkScreen   *screen,
 
   if (strcmp (name, "gtk-dialogs-use-header") == 0)
     {
+#ifdef __HAIKU__
+      g_value_set_boolean (value, FALSE);
+#else
       g_value_set_boolean (value, TRUE);
+#endif
       return TRUE;
     }
 
